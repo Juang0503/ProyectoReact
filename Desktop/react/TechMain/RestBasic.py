@@ -21,7 +21,7 @@ app.mount("/static", StaticFiles(directory=os.path.join(BASE_DIR, "Graficas")), 
 
 @app.get("/")
 def read_root():
-    return {"message": "Hola mundo, servicio activo"}
+    return {"message": "Api encendida correctamente"}
 
 @app.get("/grafico/barras")
 def grafico_barras():

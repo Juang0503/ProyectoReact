@@ -1,94 +1,124 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
-export default function SelectDesdeLista() {
-  const [opciones, setOpciones] = useState([]);
-  const [seleccionado, setSeleccionado] = useState('');
-  const [graficoSeleccionado, setGraficoSeleccionado] = useState('');
-  const [rutaGrafico, setRutaGrafico] = useState('');
+export default function GraficosPorSeccion() {
+  const [rutasGraficos, setRutasGraficos] = useState({
+    barras: '',
+    torta: '',
+    lineas: '',
+    area: ''
+  });
 
-  // Mapea el nombre legible con la ruta del endpoint
+  // Estado para controlar la visibilidad de cada gráfico
+  const [visibles, setVisibles] = useState({
+    barras: false,
+    torta: false,
+    lineas: false,
+    area: false
+  });
+
   const opcionesGraficos = [
     {
-      nombre: "Producción de Energía Renovable por Fuente",
-      endpoint: "/grafico/barras"
+      nombre: "Producción Energía Renovable",
+      descripcion: "Aqui luis care lombriz agrega texto",
+      endpoint: "/grafico/barras",
+      clave: "barras"
     },
     {
-      nombre: "Participación de Energías Renovables",
-      endpoint: "/grafico/torta"
+      nombre: "Participación Energías Renovables",
+      descripcion: "sobre el tema de las graficas",
+      endpoint: "/grafico/torta",
+      clave: "torta"
     },
     {
-      nombre: "Tendencia en la Capacidad Instalada",
-      endpoint: "/grafico/lineas"
+      nombre: "Tendencia Capacidad Instalada",
+      descripcion: "esto esta en el request de los paises",
+      endpoint: "/grafico/lineas",
+      clave: "lineas"
     },
     {
-      nombre: "Comparación Consumo Renovable vs Convencional",
-      endpoint: "/grafico/area"
+      nombre: "Consumo Renovable vs Convencional",
+      descripcion: "Compara el consumo de energía renovable frente a la convencional.",
+      endpoint: "/grafico/area",
+      clave: "area"
     }
   ];
 
   useEffect(() => {
-    axios.get('http://localhost:8000/paises')
-      .then(response => {
-        setOpciones(response.data);
-        if (response.data.length > 0) {
-          setSeleccionado(response.data[0]);
-        }
-      })
-      .catch(error => {
-        console.error('Error al obtener los datos:', error);
-      });
+    opcionesGraficos.forEach(grafico => {
+      axios.get(`http://localhost:8000${grafico.endpoint}`)
+        .then(response => {
+          setRutasGraficos(prev => ({
+            ...prev,
+            [grafico.clave]: `http://localhost:8000${response.data.ruta}`
+          }));
+        })
+        .catch(error => {
+          console.error(`Error al obtener el gráfico ${grafico.nombre}:`, error);
+        });
+    });
   }, []);
 
-  useEffect(() => {
-    if (graficoSeleccionado) {
-      const grafico = opcionesGraficos.find(g => g.nombre === graficoSeleccionado);
-      if (grafico) {
-        axios.get(`http://localhost:8000${grafico.endpoint}`)
-          .then(response => {
-            setRutaGrafico(`http://localhost:8000${response.data.ruta}`);
-          })
-          .catch(error => {
-            console.error('Error al obtener el gráfico:', error);
-          });
-      }
-    }
-  }, [graficoSeleccionado]);
+  const mostrarGrafico = clave => {
+    setVisibles(prev => ({ ...prev, [clave]: true }));
+  };
+
+  const cerrarGrafico = clave => {
+    setVisibles(prev => ({ ...prev, [clave]: false }));
+  };
 
   return (
     <div>
-      <select id="pais" value={seleccionado} onChange={e => setSeleccionado(e.target.value)}>
-        {opciones.map((opcion, index) => (
-          <option key={index} value={opcion}>{opcion}</option>
-        ))}
-      </select>
-
-      <div style={{ marginTop: '1rem' }}>
-        <p>Selecciona un gráfico:</p>
-        {opcionesGraficos.map((grafico) => (
-          <button
-            key={grafico.nombre}
-            onClick={() => setGraficoSeleccionado(grafico.nombre)}
-            style={{
-              margin: '0.3rem',
-              padding: '0.5rem 1rem',
-              backgroundColor: graficoSeleccionado === grafico.nombre ? '#4caf50' : '#eee',
-              color: graficoSeleccionado === grafico.nombre ? 'white' : 'black',
-              border: 'none',
-              borderRadius: '4px',
-              cursor: 'pointer'
-            }}
-          >
-            {grafico.nombre}
-          </button>
-        ))}
-      </div>
-
-      {rutaGrafico && (
-        <div style={{ marginTop: '1rem' }}>
-          <img src={rutaGrafico} alt={`Gráfico: ${graficoSeleccionado}`} style={{ maxWidth: '100%', height: 'auto' }} />
-        </div>
-      )}
+      {opcionesGraficos.map(grafico => (
+        <section
+          key={grafico.clave}
+          style={{
+            margin: '2rem 0',
+            padding: '1rem',
+            border: '1px solid #eee',
+            borderRadius: '8px'
+          }}
+        >
+          <h3>{grafico.nombre}</h3>
+          <p>{grafico.descripcion}</p>
+          {!visibles[grafico.clave] ? (
+            <button className="btn btn-success" onClick={() => mostrarGrafico(grafico.clave)}>
+              Mostrar gráfico
+            </button>
+          ) : (
+            <>
+              {rutasGraficos[grafico.clave] ? (
+                <div
+                  style={{
+                    background: '#fafafa',
+                    border: '1px solid #ccc',
+                    borderRadius: '8px',
+                    padding: '1rem',
+                    margin: '1rem 0'
+                  }}
+                >
+                  <img
+                    src={rutasGraficos[grafico.clave]}
+                    alt={`Gráfico: ${grafico.nombre}`}
+                    style={{
+                      maxWidth: '100%',
+                      height: 'auto',
+                      display: 'block',
+                      margin: '0 auto'
+                    }}
+                  />
+                </div>
+              ) : (
+                <p>Cargando gráfico...</p>
+              )}
+              <br />
+              <button className="btn btn-danger" onClick={() => cerrarGrafico(grafico.clave)}>
+                Cerrar gráfico
+              </button>
+            </>
+          )}
+        </section>
+      ))}
     </div>
   );
 }

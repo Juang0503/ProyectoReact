@@ -1,90 +1,40 @@
-* {
-  box-sizing: border-box;
-}
-
 body {
-  font-family: sans-serif;
-  margin: 20px;
-  padding: 0;
+  position: relative;
 }
 
-h1 {
-  margin-top: 0;
-  font-size: 22px;
+section {
+  padding: 20px 0;
 }
 
-h2 {
-  margin-top: 0;
-  font-size: 20px;
+header {
+  background: url('/public/img/waterfall-7344396_1920.jpg') no-repeat center center/cover;
+  color: rgb(16, 15, 15);
+  padding: 105px 0;
 }
 
-h3 {
-  margin-top: 0;
-  font-size: 18px;
+.navbar {
+  background-color: rgb(23, 66, 8);}
+
+.navbar-nav .nav-link {
+  color: #fff;
 }
 
-h4 {
-  margin-top: 0;
-  font-size: 16px;
-}
-
-h5 {
-  margin-top: 0;
-  font-size: 14px;
-}
-
-h6 {
-  margin-top: 0;
-  font-size: 12px;
-}
-
-code {
-  font-size: 1.2em;
-}
-
-ul {
-  padding-inline-start: 20px;
-}
-
-* {
-  box-sizing: border-box;
-}
-
-body {
-  font-family: sans-serif;
-  margin: 20px;
-  padding: 0;
-}
-
-.square {
-  background: #fff;
-  border: 1px solid #999;
-  float: left;
-  font-size: 24px;
+.navbar-nav .nav-link.active {
+  color: #f8f9fa;
   font-weight: bold;
-  line-height: 34px;
-  height: 34px;
-  margin-right: -1px;
-  margin-top: -1px;
-  padding: 0;
-  text-align: center;
-  width: 34px;
 }
 
-.board-row:after {
-  clear: both;
-  content: '';
-  display: table;
+/* Animación flotante para imágenes */
+.float-image {
+  animation: float 6s ease-in-out infinite;
 }
 
-.status {
-  margin-bottom: 10px;
-}
-.game {
-  display: flex;
-  flex-direction: row;
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-15px); }
+  100% { transform: translateY(0px); }
 }
 
-.game-info {
-  margin-left: 20px;
+.fondo {
+  background-color: #ffffff;
 }
