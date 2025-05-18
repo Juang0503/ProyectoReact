@@ -68,7 +68,7 @@ export default function GraficosPorSeccion() {
   };
 
   return (
-    <div>
+    <section id="graficos" style={{ padding: '1rem 0' }}>
       {opcionesGraficos.map(grafico => (
         <section
           key={grafico.clave}
@@ -119,6 +119,6 @@ export default function GraficosPorSeccion() {
           )}
         </section>
       ))}
-    </div>
+    </section>
   );
 }

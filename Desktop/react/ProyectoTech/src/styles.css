@@ -38,3 +38,23 @@ header {
 .fondo {
   background-color: #ffffff;
 }
+/* Estilos personalizados para la tabla de datos históricos */
+.table thead th {
+  background-color: #198754;
+  color: #fff;
+  text-align: center;
+}
+
+.table tbody td {
+  text-align: center;
+  vertical-align: middle;
+}
+
+.card {
+  box-shadow: 0 2px 8px rgb(1, 0, 0);
+}
+.img{
+  float: left;
+  width: 300px;
+  margin-bottom: 20px;
+}
