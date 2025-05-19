@@ -11,7 +11,16 @@ function App() {
   return (
     <Router>
       <div className="container">
-        <h2 className="my-4">Dashboard de Energía Renovable</h2>
+        <h2
+  className="my-5 text-center"
+  style={{
+    alignItems: "center",
+    color: "rgb(232, 232, 232)",
+    textShadow: "1px 1px 3px rgb(0, 0, 0)"
+  }}>
+  Monitoreo Renovable
+</h2>
+
         
 
         <Routes>
@@ -21,7 +30,7 @@ function App() {
               <>
                 <DashboardRenovable />
                 <button
-          className="btn btn-success mb-3"
+          className="btn btn-success mb-5"
           onClick={() => setMostrarTabla(!mostrarTabla)}
         >
           {mostrarTabla ? 'Ocultar Datos Históricos' : 'Mostrar Datos Históricos'}

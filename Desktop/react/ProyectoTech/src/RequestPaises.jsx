@@ -20,25 +20,25 @@ export default function GraficosPorSeccion() {
   const opcionesGraficos = [
     {
       nombre: "Producción Energía Renovable",
-      descripcion: "Aqui luis care lombriz agrega texto",
+      descripcion: "La producción de energía renovable representa un pilar fundamental en la transición hacia un modelo energético sostenible. A través del aprovechamiento de fuentes como la energía solar, eólica, hidroeléctrica, geotérmica y biomasa, se busca reducir la dependencia de combustibles fósiles y minimizar el impacto ambiental asociado a la generación de electricidad.",
       endpoint: "/grafico/barras",
       clave: "barras"
     },
     {
       nombre: "Participación Energías Renovables",
-      descripcion: "sobre el tema de las graficas",
+      descripcion: "El análisis gráfico de la participación de las energías renovables en la matriz energética es fundamental para comprender cómo ha evolucionado el uso de estas fuentes en comparación con las no renovables. A través de diferentes tipos de gráficas, se pueden destacar patrones, avances y desafíos en la adopción de tecnologías limpias.",
       endpoint: "/grafico/torta",
       clave: "torta"
     },
     {
       nombre: "Tendencia Capacidad Instalada",
-      descripcion: "esto esta en el request de los paises",
+      descripcion: "La tendencia de la capacidad instalada en energías renovables ha mostrado un crecimiento constante durante la última década. Esta capacidad representa el potencial total de generación eléctrica que un país o región puede alcanzar mediante fuentes limpias como la solar, eólica, hidroeléctrica, geotérmica y biomasa.",
       endpoint: "/grafico/lineas",
       clave: "lineas"
     },
     {
       nombre: "Consumo Renovable vs Convencional",
-      descripcion: "Compara el consumo de energía renovable frente a la convencional.",
+      descripcion: "El análisis del consumo de energía renovable frente al consumo de energía convencional permite entender cómo se distribuye la demanda energética y qué tanto se ha avanzado en la transición hacia un modelo más sostenible.",
       endpoint: "/grafico/area",
       clave: "area"
     }
@@ -90,8 +90,8 @@ export default function GraficosPorSeccion() {
               {rutasGraficos[grafico.clave] ? (
                 <div
                   style={{
-                    background: '#fafafa',
-                    border: '1px solid #ccc',
+                    
+                   
                     borderRadius: '8px',
                     padding: '1rem',
                     margin: '1rem 0'
@@ -102,9 +102,10 @@ export default function GraficosPorSeccion() {
                     alt={`Gráfico: ${grafico.nombre}`}
                     style={{
                       maxWidth: '100%',
-                      height: 'auto',
+                      height: '100%',
                       display: 'block',
-                      margin: '0 auto'
+                      margin: '0 auto',
+                      padding: '1rem'
                     }}
                   />
                 </div>

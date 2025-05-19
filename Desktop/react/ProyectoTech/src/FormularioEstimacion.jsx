@@ -86,7 +86,7 @@ export default function FormularioEstimacion() {
             </form>
             {error && <p style={{ color: 'red' }}>{error}</p>}
             {porcentajeRenovable !== null && (
-                <div className="alert alert-info mt-3">
+                <div className="cuadro_estimaciones">
                     <strong>Porcentaje estimado de energía renovable en tu consumo:</strong> {porcentajeRenovable}%<br />
                     <strong>Consumo renovable estimado:</strong> {consumoRenovable} kWh
                 </div>
